@@ -6,7 +6,7 @@ export let fakeBackendProvider = {
   provide: Http,
   useFactory: (backend: MockBackend, options: BaseRequestOptions) => {
     // array in local storage for registered users
-    let users: any[] = JSON.parse(localStorage.getItem('users')) || [];
+    const users: any[] = JSON.parse(localStorage.getItem('users')) || [];
 
     // configure fake backend
     backend.connections.subscribe((connection: MockConnection) => {
