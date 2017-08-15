@@ -1,31 +1,38 @@
 import { Injectable } from '@angular/core';
 import { Headers, Response, Http/*, RequestOptions */} from '@angular/http';
 import 'rxjs/add/operator/map';
+import {Router} from '@angular/router';
 
 @Injectable()
 export class AuthenticationService {
   // private loggedIn = false;
-  private loginUrl = 'http://localhost:8080/login';
+  private url = 'http://localhost:4200';
   private headers = new Headers({'Content-Type': 'application/x-www-form-urlencoded'});
 
-  constructor(private http: Http) {
+  constructor(private http: Http, private router: Router) {
   }
 
   login(username, password) {
-    const body = new URLSearchParams();
-    body.set('username', username);
-    body.set('password', password);
-    return this.http.post(this.loginUrl, body, this.headers)
+    return this.http.post(this.url + '/login', { username: username, password: password })
       .map((response: Response) => {
           const user = response.json();
           if (user) {
             localStorage.setItem('currentUser', JSON.stringify(user));
+            this.router.navigate(['home'], { replaceUrl: true });
           }
         }
       );
   }
 
   logOut() {
-    localStorage.removeItem('currentUser');
+      return this.http.post(this.url + '/logout', JSON.stringify({}))
+          .map((response: Response) => {
+                  const success = response.json();
+                  if (success) {
+                      localStorage.removeItem('currentUser');
+                      this.router.navigate(['/login'], { replaceUrl: true });
+                  }
+              }
+          );
   }
 }

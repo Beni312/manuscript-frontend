@@ -1,16 +1,22 @@
 import {RouterModule, Routes} from '@angular/router';
 import {ModuleWithProviders} from '@angular/core';
-import {HomeComponent} from './home/home.component';
 import {LoginComponent} from './login/login.component';
-import {RegistrationComponent} from './registration/registration.component';
 import {AuthenticationService} from './services/authentication.service';
+import {GuardComponent} from './guard/index';
+import {homeRoutes} from './home/home.router';
 
 export const router: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full'},
-  { path: 'login', component: LoginComponent},
-  { path: 'home', component: HomeComponent},
-  { path: 'registration', component: RegistrationComponent},
-  { path: 'services', component: AuthenticationService}
+    {path: 'login', component: LoginComponent},
+    {path: 'services', component: AuthenticationService},
+    {
+        path: 'home',
+        canActivate: [GuardComponent],
+        children: [
+            ...homeRoutes
+        ]
+    },
+
+    {path: '**', redirectTo: 'home', pathMatch: 'full'}
 ];
 
 export const routes: ModuleWithProviders = RouterModule.forRoot(router);

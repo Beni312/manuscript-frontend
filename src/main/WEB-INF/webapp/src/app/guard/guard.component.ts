@@ -1,11 +1,7 @@
-import { Component } from '@angular/core';
-import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from '@angular/router';
+import { Injectable } from '@angular/core';
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
 
-@Component({
-  selector: 'app-guard',
-  templateUrl: './guard.component.html',
-  styleUrls: ['./guard.component.css']
-})
+@Injectable()
 export class GuardComponent implements CanActivate {
 
   constructor(private router: Router) { }
