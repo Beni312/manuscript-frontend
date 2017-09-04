@@ -9,7 +9,7 @@ export function fakeBackendFactory(backend: MockBackend, options: BaseRequestOpt
         setTimeout(() => {
 
 
-            if (connection.request.url.endsWith('/login') && connection.request.method === RequestMethod.Post) {
+            if (connection.request.url.endsWith('/j_spring_security_check') && connection.request.method === RequestMethod.Post) {
                 const params = JSON.parse(connection.request.getBody());
 
                 const filteredUsers = users.filter(user => {

@@ -1,19 +1,19 @@
 import { Injectable } from '@angular/core';
-import { Headers, Response, Http/*, RequestOptions */} from '@angular/http';
+import { Response, Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import {Router} from '@angular/router';
 
 @Injectable()
 export class AuthenticationService {
   // private loggedIn = false;
-  private url = 'http://localhost:4200';
-  private headers = new Headers({'Content-Type': 'application/x-www-form-urlencoded'});
+  private url = 'http://localhost:4200/#';
+  // private headers = new Headers({'Content-Type': 'application/x-www-form-urlencoded'});
 
   constructor(private http: Http, private router: Router) {
   }
 
   login(username, password) {
-    return this.http.post(this.url + '/login', { username: username, password: password })
+    return this.http.post(this.url + '/j_spring_security_check', { username: username, password: password })
       .map((response: Response) => {
           const user = response.json();
           if (user) {
@@ -30,7 +30,7 @@ export class AuthenticationService {
                   const success = response.json();
                   if (success) {
                       localStorage.removeItem('currentUser');
-                      this.router.navigate(['/login'], { replaceUrl: true });
+                      this.router.navigate(['login'], { replaceUrl: true });
                   }
               }
           );
