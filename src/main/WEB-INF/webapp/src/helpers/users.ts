@@ -2,6 +2,7 @@ export let usersData = [
     {
         username: 'steve',
         password: 'pass',
+        role: 'admin',
         title: 'Dr',
         firstName: '',
         lastName: '',
