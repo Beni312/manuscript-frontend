@@ -114,7 +114,7 @@ export let academicDisciplineData = [
     {id: '02023021', name: 'Public History'},
     {id: '02023022', name: 'Social History'},
     {id: '02023023', name: 'United States History'},
-    // {id: '02023024', name: 'Women's History'},
+    {id: '02023024', name: 'Women' + "'" + 's History'},
     {id: '02023025', name: 'Other History'},
     {id: '02024', name: 'History of Art, Architecture, and Archaeology'},
     {id: '02024001', name: 'American Art and Architecture'},

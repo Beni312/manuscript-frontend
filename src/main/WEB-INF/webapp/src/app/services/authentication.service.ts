@@ -19,7 +19,7 @@ export class AuthenticationService {
                     const user = response.json();
                     if (user) {
                       if (user.role == 'admin'){
-                        localStorage.setItem('currentUser', JSON.stringify(user.role));
+                        localStorage.setItem('currentUser', JSON.stringify('admin'));
                         this.router.navigate(['admin'], {replaceUrl: true});
                       } else {
                         localStorage.setItem('currentUser', JSON.stringify(''));

@@ -2,8 +2,8 @@ import {Injectable} from '@angular/core';
 import {Http, Response} from '@angular/http';
 import 'rxjs/add/operator/map';
 import {Router} from '@angular/router';
-import {Observable} from "rxjs";
-import {AcademicDiscipline} from "../models/academic.discipline";
+import {Observable} from 'rxjs';
+import {AcademicDiscipline} from '../models/academic.discipline';
 
 @Injectable()
 export class RegistrationService {

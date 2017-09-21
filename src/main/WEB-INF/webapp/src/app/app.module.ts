@@ -13,8 +13,6 @@ import { AdminModule } from './modules/admin/admin.module';
 import { UserModule } from './modules/user/user.module';
 import { SharedModule } from './shared/shared.module';
 import { AuthenticationService } from './services/authentication.service';
-import { GuardComponent } from './services/guard.component';
-import {NavigationComponent} from "./services/NavigationComponent";
 
 const rootRouting: ModuleWithProviders = RouterModule.forRoot([
         {
@@ -23,11 +21,6 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot([
         {
             path: 'registration', component: RegistrationComponent
         },
-        // //TODO ezzel baszni valamit mert nagyon trágya
-        // {
-        //     path: '**',
-        //     component: NavigationComponent
-        // },
         ], {useHash: true});
 
 @NgModule({
@@ -46,7 +39,6 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot([
         rootRouting
     ],
     providers: [
-        GuardComponent,
         AuthenticationService,
         // fake backend
         fakeBackendProvider,

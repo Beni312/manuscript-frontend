@@ -8,7 +8,7 @@ export class GuardComponent implements CanActivate {
 
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    if (localStorage.getItem('currentUser') == '') {
+    if (!localStorage.getItem('currentUser').includes('admin')) {
       return true;
     }
 

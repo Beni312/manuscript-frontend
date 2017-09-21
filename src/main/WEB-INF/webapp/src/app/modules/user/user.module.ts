@@ -13,7 +13,6 @@ const userRouting: ModuleWithProviders = RouterModule.forChild([
         path: '',
         component: UserComponent,
         canActivate: [GuardComponent],
-        // redirectTo: HomeComponent.name,
         children: [
             {
                 path: 'home',
@@ -41,6 +40,7 @@ const userRouting: ModuleWithProviders = RouterModule.forChild([
         UserComponent
     ],
     providers: [
+        GuardComponent
     ]
 })
 export class UserModule {

@@ -6,7 +6,7 @@ import {SharedModule} from '../../shared/shared.module';
 import {HomeComponent} from '../../shared/home/home.component';
 import {AboutComponent} from '../../shared/about/about.component';
 import {ManageComponent} from '../../shared/manage/manage.component';
-import {AdminGuard} from "../../services/admin.guard";
+import {AdminGuard} from '../../services/admin.guard';
 
 const adminRouting: ModuleWithProviders = RouterModule.forChild([
     {
