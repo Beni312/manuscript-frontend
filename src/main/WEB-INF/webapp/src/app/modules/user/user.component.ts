@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthenticationService} from '../../services/authentication.service';
-import {Router} from "@angular/router";
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-user',
@@ -12,7 +12,7 @@ export class UserComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.router.navigate(['home'], {replaceUrl: true});
+    this.router.navigate(['home'], {replaceUrl: true});
   }
 
   logout() {

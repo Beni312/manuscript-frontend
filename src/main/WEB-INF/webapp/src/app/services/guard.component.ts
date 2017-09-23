@@ -8,7 +8,8 @@ export class GuardComponent implements CanActivate {
 
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    if (!localStorage.getItem('currentUser').includes('admin')) {
+    let user = localStorage.getItem('currentUser');
+    if (user && !user.includes('admin')) {
       return true;
     }
 

@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
-import {AuthenticationService} from "../../services/authentication.service";
+import {AuthenticationService} from '../../services/authentication.service';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-admin',
@@ -8,7 +9,8 @@ import {AuthenticationService} from "../../services/authentication.service";
 })
 export class AdminComponent {
 
-    constructor(private service: AuthenticationService) {
+    constructor(private service: AuthenticationService, private router: Router) {
+        this.router.navigate(['admin/home'], {replaceUrl: true});
     }
 
     logout() {
