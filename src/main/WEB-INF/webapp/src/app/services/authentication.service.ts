@@ -17,8 +17,8 @@ export class AuthenticationService {
         return this.http.post(this.url + '/j_spring_security_check', {username: username, password: password})
             .map((response: Response) => {
                     const user = response.json();
-                    if (user) {
-                      if (user.role == 'admin') {
+                    if (user.success) {
+                      if (user.role === 'admin') {
                         localStorage.setItem('currentUser', JSON.stringify('admin'));
                         this.router.navigate(['admin'], {replaceUrl: true});
                       } else {
