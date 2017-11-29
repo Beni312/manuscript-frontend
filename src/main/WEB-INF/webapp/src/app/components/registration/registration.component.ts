@@ -1,6 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {Http} from '@angular/http';
-import {Router} from '@angular/router';
 import 'rxjs/add/operator/map';
 import {RegistrationService} from '../../services/registration.service';
 import {AcademicDiscipline} from '../../models/academic.discipline';
@@ -8,7 +6,7 @@ import {AcademicDiscipline} from '../../models/academic.discipline';
 @Component({
     selector: 'app-registration',
     templateUrl: './registration.component.html',
-    styleUrls: ['./registration.component.css']
+    styleUrls: ['./registration.component.scss']
 })
 export class RegistrationComponent implements OnInit {
 
@@ -20,8 +18,8 @@ export class RegistrationComponent implements OnInit {
     async ngOnInit() {
       this.service.preload().subscribe(
         academicDisciplines => this.academicDisciplines = academicDisciplines,
-          err=> {
-            console.log(err)
+          err => {
+            console.log(err);
           }
       );
     }
