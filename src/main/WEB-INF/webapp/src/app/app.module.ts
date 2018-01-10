@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ModuleWithProviders, NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BaseRequestOptions, HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { MockBackend } from '@angular/http/testing';
@@ -13,6 +13,8 @@ import { AdminModule } from './modules/admin/admin.module';
 import { UserModule } from './modules/user/user.module';
 import { SharedModule } from './shared/shared.module';
 import { AuthenticationService } from './services/authentication.service';
+import { ClickOutsideDirective } from './components/directives/dropdown.directive';
+import { AutocompleteComponent } from './components/autocompl/autocompl.component';
 
 const rootRouting: ModuleWithProviders = RouterModule.forRoot([
         {
@@ -27,7 +29,9 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot([
     declarations: [
         AppComponent,
         LoginComponent,
-        RegistrationComponent
+        RegistrationComponent,
+        ClickOutsideDirective,
+        AutocompleteComponent
     ],
     imports: [
         AdminModule,
@@ -35,6 +39,7 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot([
         SharedModule,
         BrowserModule,
         FormsModule,
+        ReactiveFormsModule,
         HttpModule,
         rootRouting
     ],
