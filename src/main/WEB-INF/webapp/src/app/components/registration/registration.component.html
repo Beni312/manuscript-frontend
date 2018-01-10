@@ -1,3 +1,70 @@
-<div>
-  registration works
+<form class="registration-form" [formGroup]="formControl" #formDir="ngForm">
+    <div *ngIf="!result.success">
+        <div class="registration-title">
+            <h1>Registration</h1>
+        </div>
+        <div class="form-group col-md-2">
+            <input type="text" class="form-control" name="title" placeholder="Title" formControlName="title" required>
+        </div>
+        <div class="form-group col-md-5">
+            <input type="text" class="form-control" id="firstName" name="firstName" placeholder="First name"
+                   [(ngModel)]="this.userRegistration.firstName" formControlName="firstName" required>
+        </div>
+        <div class="form-group col-md-5">
+            <input type="text" class="form-control" name="lastName" placeholder="Last name"
+                   [(ngModel)]="this.userRegistration.lastName" formControlName="lastName" required>
+        </div>
+        <div class="form-group col-md-12">
+            <div>
+                <input type="text" class="form-control" name="job" placeholder="Job"
+                       [(ngModel)]="this.userRegistration.job" formControlName="job" required>
+            </div>
+        </div>
+        <div class="form-group col-md-12">
+            <div>
+                <input type="email" class="form-control" name="email" placeholder="Enter email"
+                       [(ngModel)]="this.userRegistration.email" formControlName="email" required>
+            </div>
+        </div>
+        <div class="form-group col-md-12">
+            <div>
+                <input type="text" class="form-control" name="userName" placeholder="Username"
+                       [(ngModel)]="this.userRegistration.userName" formControlName="userName" required>
+            </div>
+        </div>
+        <div formGroupName="authentication">
+            <div class="form-group col-md-6">
+                <div>
+                    <input type="password" class="form-control" name="password" placeholder="Password"
+                           [(ngModel)]="this.userRegistration.password.password" formControlName="password" required>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <div>
+                    <input type="password" class="form-control" name="passwordAgain" placeholder="Password again"
+                           [(ngModel)]="this.userRegistration.password.passwordAgain" formControlName="passwordAgain" required>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <autocomplete [items]="academicDisciplines" [property]="'name'" (update)="addItems($event)" [placeholder]="'Choose academic disciplines'">
+            </autocomplete>
+        </div>
+        <div class="form-group col-sm-10 reg-div">
+            <button (click)="register()" [disabled]="formControl.invalid || userRegistration.academicDisciplines.length < 1" class="btn btn-primary btn-block btn-reg">Register</button>
+            <div *ngIf="formDir.submitted && !result.success && result.errors.length > 0">
+                <div *ngFor="let item of result.errors">
+                    {{ item.exceptionsMessage }}
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<div [hidden]="!result.success">
+    Success registration!
+    You can login in <a routerLink="/login">this</a> link
 </div>
+
+
+

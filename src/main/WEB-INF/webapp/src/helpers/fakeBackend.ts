@@ -1,7 +1,8 @@
 import { Http, BaseRequestOptions, Response, ResponseOptions, RequestMethod } from '@angular/http';
 import { MockBackend, MockConnection } from '@angular/http/testing';
 import { usersData } from './users';
-import {academicDisciplineData} from './academicDisciplines';
+import { academicDisciplineData } from './academicDisciplines';
+import { ValidationError } from './validation.error';
 
 export function fakeBackendFactory(backend: MockBackend, options: BaseRequestOptions) {
     backend.connections.subscribe((connection: MockConnection) => {
@@ -15,8 +16,9 @@ export function fakeBackendFactory(backend: MockBackend, options: BaseRequestOpt
 
                 let filteredUser;
                 filteredUser = users.filter(user => {
-                    if (user.username === params.username && user.password === params.password)
-                      return user;
+                    if (user.username === params.username && user.password === params.password) {
+                        return user;
+                    }
                 });
 
                 if (filteredUser[0]) {
@@ -49,13 +51,62 @@ export function fakeBackendFactory(backend: MockBackend, options: BaseRequestOpt
             }
 
             if (connection.request.url.endsWith('/registration/preload') && connection.request.method === RequestMethod.Post) {
-              console.log(academicDisciplines);
                 connection.mockRespond((new Response(new ResponseOptions({
                     status: 200,
                     body: {
                         academicDisciplines: academicDisciplines
                     }
                 }))));
+            }
+            if (connection.request.url.endsWith('/registration/create') && connection.request.method === RequestMethod.Post) {
+                const request = JSON.parse(connection.request.getBody());
+                let userNameSuccess = true;
+                users.forEach(item => {
+                    if (item.username === request.user.userName) {
+                        userNameSuccess = false;
+                    }
+                });
+                let passwordSuccess = true;
+                if (request.user.password.password !== request.user.password.passwordAgain) {
+                    passwordSuccess = false;
+                }
+
+                const errors: ValidationError[] = [];
+
+                if (!userNameSuccess) {
+                    errors.push(new ValidationError(null, 'User name is already used!'));
+                }
+                if (!passwordSuccess) {
+                    errors.push(new ValidationError(null, 'Password parity check failed. The given passwords are not matched.'));
+                }
+                if (errors.length === 0) {
+                    users.push({
+                            'username': request.user.userName,
+                            'password': request.user.password.password,
+                            'role': 'user',
+                            'title': request.user.title,
+                            'firstName': request.user.firstName,
+                            'lastName': request.user.lastName,
+                            'job': request.user.job,
+                            'email': request.user.email,
+                            'academicDisciplines': request.user.academicDisciplines
+                    });
+                    connection.mockRespond((new Response(new ResponseOptions({
+                        status: 200,
+                        body: {
+                            success: true,
+                            errors: []
+                        }
+                    }))));
+                }else {
+                    connection.mockRespond((new Response(new ResponseOptions({
+                        status: 403,
+                        body: {
+                            success: false,
+                            errors: errors
+                        }
+                    }))));
+                }
             }
         }, 500);
 
